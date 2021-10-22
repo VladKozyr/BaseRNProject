@@ -1,5 +1,7 @@
 package com.takeuseatcalls.react;
 
+import androidx.annotation.NonNull;
+
 import com.facebook.react.ReactPackage;
 import com.facebook.react.bridge.NativeModule;
 import com.facebook.react.bridge.ReactApplicationContext;
@@ -12,11 +14,13 @@ import java.util.List;
 
 public class TakeUsEatCallsPackage implements ReactPackage {
 
+    @NonNull
     @Override
     public List<ViewManager> createViewManagers(ReactApplicationContext reactContext) {
         return Collections.emptyList();
     }
 
+    @NonNull
     @Override
     public List<NativeModule> createNativeModules(
             ReactApplicationContext reactContext) {

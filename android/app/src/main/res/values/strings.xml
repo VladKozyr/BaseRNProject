@@ -1,3 +1,35 @@
 <resources>
     <string name="app_name">TakeUsEatCalls</string>
+    <string name="title_activity_phone">PhoneActivity</string>
+    <!-- Strings used for fragments for navigation -->
+
+    <string name="call_status_new">New Call</string>
+    <string name="call_status_dialing">Dialing…</string>
+    <string name="call_status_waiting">Waiting…</string>
+    <string name="call_status_missed">Missed Call</string>
+    <string name="call_status_holding">Call On Hold</string>
+    <string name="call_status_connecting">Connecting…</string>
+    <string name="call_status_conferenced">Conferenced</string>
+    <string name="call_status_incoming">Incoming Call</string>
+    <string name="call_status_active">Call In Progress</string>
+    <string name="call_status_disconnected">Call ended</string>
+    <string name="call_status_pulling_call">Pulling Call…</string>
+    <string name="call_status_unknown">Unknown call status</string>
+    <string name="call_status_disconnecting">Call Disconnecting…</string>
+    <string name="call_status_phone_account">Select phone account</string>
+    <string name="unknown">Unknown</string>
+
+
+    <string name="dialer">Dialer</string>
+    <string name="accept">Accept</string>
+    <string name="decline">Decline</string>
+    <string name="unknown_caller">Unknown Caller</string>
+    <string name="is_calling">Is Calling…</string>
+    <string name="dialing">Dialing…</string>
+    <string name="call_ended">Call Ended</string>
+    <string name="call_ending">Call Ending</string>
+    <string name="ongoing_call">Ongoing Call</string>
+    <string name="select_sim">Select a SIM for this call</string>
+    <string name="always_use_this_sim">Always use this SIM for this number</string>
+    <string name="unset_default_sim">Unset default SIM</string>
 </resources>
