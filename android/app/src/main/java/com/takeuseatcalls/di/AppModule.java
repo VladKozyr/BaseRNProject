@@ -3,6 +3,7 @@ package com.takeuseatcalls.di;
 import android.app.KeyguardManager;
 import android.content.Context;
 import android.media.AudioManager;
+import android.os.PowerManager;
 import android.os.Vibrator;
 
 import com.takeuseatcalls.domain.call.CallManager;
@@ -32,6 +33,11 @@ public abstract class AppModule {
     @Provides
     public static KeyguardManager provideKeyguardManager(@ApplicationContext Context context) {
         return (KeyguardManager) context.getSystemService(Context.KEYGUARD_SERVICE);
+    }
+
+    @Provides
+    public static PowerManager providePowerManager(@ApplicationContext Context context) {
+        return (PowerManager) context.getSystemService(Context.POWER_SERVICE);
     }
 
     @Provides

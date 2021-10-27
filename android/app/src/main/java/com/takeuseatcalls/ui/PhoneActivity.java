@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.KeyguardManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.PowerManager;
 import android.view.View;
 import android.view.WindowManager;
 
@@ -23,11 +24,13 @@ import dagger.hilt.android.AndroidEntryPoint;
 public class PhoneActivity extends AppCompatActivity {
 
     private ActivityPhoneBinding binding;
-
     private PhoneViewModel viewModel;
+    private PowerManager.WakeLock proximityWakeLock = null;
 
     @Inject
     public KeyguardManager keyguardManager;
+    @Inject
+    public PowerManager powerManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,12 +45,16 @@ public class PhoneActivity extends AppCompatActivity {
         setupObservers();
 
         addLockScreenFlags();
+        initProximitySensor();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         viewModel.onCallEnd();
+        if (proximityWakeLock != null && proximityWakeLock.isHeld()) {
+            proximityWakeLock.release();
+        }
     }
 
     private void addLockScreenFlags() {
@@ -70,6 +77,14 @@ public class PhoneActivity extends AppCompatActivity {
         }
     }
 
+
+    private void initProximitySensor() {
+        if (proximityWakeLock == null || !proximityWakeLock.isHeld()) {
+            proximityWakeLock = powerManager.newWakeLock(PowerManager.PROXIMITY_SCREEN_OFF_WAKE_LOCK, "com.takeuseat:wake_lock");
+            proximityWakeLock.acquire(10 * 60 * 1000L);
+        }
+    }
+
     @SuppressLint("SetTextI18n")
     private void setupObservers() {
         viewModel.dialpadString.observe(this, str -> {
@@ -81,7 +96,7 @@ public class PhoneActivity extends AppCompatActivity {
                 binding.cntrIncomingCall.setVisibility(View.VISIBLE);
                 binding.cntrCall.setVisibility(View.INVISIBLE);
             } else if (state == CallState.DISCONNECTED) {
-                finishAffinity();
+                onEndCall();
             } else {
                 binding.cntrIncomingCall.setVisibility(View.INVISIBLE);
                 binding.cntrCall.setVisibility(View.VISIBLE);
@@ -132,6 +147,14 @@ public class PhoneActivity extends AppCompatActivity {
                 binding.cntrDialpad.setVisibility(View.GONE);
             }
         });
+    }
+
+    private void onEndCall() {
+
+        if (proximityWakeLock != null && proximityWakeLock.isHeld())
+            proximityWakeLock.release();
+
+        finishAffinity();
     }
 
     private void setupBindings() {
