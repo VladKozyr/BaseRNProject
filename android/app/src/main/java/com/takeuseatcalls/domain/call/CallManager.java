@@ -65,6 +65,8 @@ public class CallManager {
             } else {
                 call.disconnect();
             }
+        } else {
+            if (inCallService != null) inCallService.onCallRemoved(null);
         }
     }
 }

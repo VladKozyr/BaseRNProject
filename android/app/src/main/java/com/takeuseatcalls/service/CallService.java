@@ -30,7 +30,7 @@ public class CallService extends InCallService {
         public void onStateChanged(Call call, int state) {
             super.onStateChanged(call, state);
 
-            if (state != Call.STATE_DISCONNECTED) {
+            if (state != Call.STATE_DISCONNECTED && callManager.call == null) {
                 callNotificationManager.setupNotification();
             }
 
